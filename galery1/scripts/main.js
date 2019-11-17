@@ -15,7 +15,7 @@ function render(imageUrl) {
     // Wykorzystanie ClassList API
     $img.classList.add('mt-3');
 
-    // Funkcja strzałkowa
+    // Funkcja strzałkowa - Arrow function
     $img.addEventListener('click', () => {
         console.log('obrazek został kliknięty');
 
@@ -49,17 +49,17 @@ function displayPhotos(gallery) {
     //     render(imageUrl);
     // });
 
-    const isEmptyGallery = (gallery.length === 0);
+    // const isEmptyGallery = (gallery.length === 0);
 
-    if (isEmptyGallery) {
-        displayEmptyGalleryMessage();
-    } else if (gallery.length === 1) {
-        // Galeria ma tylko jeden obrazek
-        // displayGalleryWithSingleImageMessage();
-    } else {
-        // Wyrenderuj wszystkie obrazki
-        gallery.forEach(render);
-    }
+    // if (isEmptyGallery) {
+    //     displayEmptyGalleryMessage();
+    // } else if (gallery.length === 1) {
+    //     // Galeria ma tylko jeden obrazek
+    //     // displayGalleryWithSingleImageMessage();
+    // } else {
+    //     // Wyrenderuj wszystkie obrazki
+    //     gallery.forEach(render);
+    // }
 }
 
 function displayEmptyGalleryMessage() {
@@ -99,9 +99,20 @@ function displayImagesUrls() {
 function main() {
     console.log('main()');
 
-    // displayGallerySize(); // 3
-    displayPhotos(photos);
-    displayGallerySize(); // 6
+
+    const url = 'http://fakes.herokuapp.com/photos'
+    makeRequest(url)
+        .then((photos) => {
+            debugger
+            const urls = [];
+            photos.forEach((photo) => {
+                urls.push(photo.imageUrl);
+            })
+            displayPhotos(urls);
+            displayGallerySize();
+        });
+
+    // displayGallerySize(); // 6
 
     // displayImagesUrls();
 }
